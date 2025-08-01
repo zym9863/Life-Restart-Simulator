@@ -7,9 +7,9 @@ import SummaryScreen from './components/SummaryScreen'
 
 function App() {
   // Game states
-  const [gameState, setGameState] = useState(null);
+  const [gameState, setGameState] = useState<import('./logic/LifeSimulator').GameState | null>(null);
   const [screen, setScreen] = useState('start'); // 'start', 'event', 'summary'
-  const [simulator] = useState(new LifeSimulator());
+  const [simulator] = useState(() => new LifeSimulator());
 
   // Initialize game state
   useEffect(() => {
@@ -22,13 +22,13 @@ function App() {
   };
 
   // Handle talent selection
-  const handleTalentSelect = (talentId) => {
+  const handleTalentSelect = (talentId: string) => {
     simulator.selectTalent(talentId);
     setGameState(simulator.getGameState());
   };
 
   // Handle talent removal
-  const handleTalentRemove = (talentId) => {
+  const handleTalentRemove = (talentId: string) => {
     simulator.removeTalent(talentId);
     setGameState(simulator.getGameState());
   };
@@ -44,7 +44,7 @@ function App() {
   };
 
   // Make a choice for current event
-  const makeChoice = (choiceIndex) => {
+  const makeChoice = (choiceIndex: number) => {
     const newState = simulator.makeChoice(choiceIndex);
     setGameState(newState);
   };
